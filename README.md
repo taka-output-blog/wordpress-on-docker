@@ -38,6 +38,7 @@ sudo systemctl status docker
 sudo systemctl enable docker
 
 ```
+* check log [release-note](https://github.com/docker/compose/blob/master/CHANGELOG.md)
 ```
 export compose='1.24.0'
 sudo curl -L https://github.com/docker/compose/releases/download/${compose}/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
