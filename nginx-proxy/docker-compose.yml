@@ -9,12 +9,12 @@ services:
       - 80:80
       - 443:443
     volumes:
-      - /home/wordpress/nginx-proxy/docker-compose.d/certs:/etc/nginx/certs:ro
-      - /home/wordpress/nginx-proxy/docker-compose.d/htpasswd:/etc/nginx/htpasswd
+      - /home/wordpress-on-docker/nginx-proxy/docker-compose.d/certs:/etc/nginx/certs:ro
+      - /home/wordpress-on-docker/nginx-proxy/docker-compose.d/htpasswd:/etc/nginx/htpasswd
       - /etc/nginx/vhost.d
       - /usr/share/nginx/html
       - /var/run/docker.sock:/tmp/docker.sock:ro
-      - /home/wordpress/nginx-proxy/nginx.conf:/etc/nginx/conf.d/my_proxy.conf
+      - /home/wordpress-on-docker/nginx-proxy/nginx.conf:/etc/nginx/conf.d/my_proxy.conf
     restart: always
     networks:
       - common_link
@@ -24,7 +24,7 @@ services:
     container_name: letsencrypt-nginx
     privileged: true
     volumes:
-      - /home/wordpress/nginx-proxy/docker-compose.d/certs:/etc/nginx/certs:rw
+      - /home/wordpress-on-docker/nginx-proxy/docker-compose.d/certs:/etc/nginx/certs:rw
       - /var/run/docker.sock:/var/run/docker.sock:ro
     volumes_from:
       - nginx-proxy

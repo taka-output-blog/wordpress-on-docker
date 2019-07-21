@@ -8,6 +8,11 @@ I hope this will help.
 
 ## memo
 ```
+cd /home
+sudo git clone https://github.com/taka-output-blog/wordpress-on-docker
+sudo chmod -R 707 wordpress-on-docker
+```
+```
 free -m
 sudo dd if=/dev/zero of=/swapfile bs=1M count=1024
 sudo chmod 600 /swapfile
