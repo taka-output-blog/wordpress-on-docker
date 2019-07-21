@@ -40,8 +40,6 @@ sudo apt-get update
 sudo apt install -y docker-ce
 
 sudo systemctl status docker
-sudo systemctl enable docker
-
 ```
 * check log [release-note](https://github.com/docker/compose/blob/master/CHANGELOG.md)
 ```
