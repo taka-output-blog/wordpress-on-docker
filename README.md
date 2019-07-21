@@ -6,7 +6,7 @@ I added own updates to this contents & put it here.
 I hope this will help.
 
 
-** memo
+## memo
 ```
 free -m
 sudo dd if=/dev/zero of=/swapfile bs=1M count=1024
