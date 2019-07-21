@@ -12,7 +12,7 @@ services:
       - /etc/httpd/conf.d
       - /etc/kusanagi.d
       - ./data:/home/kusanagi
-      - /home/wordpress/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
+      - /home/wordpress-on-docker/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
     command: /bin/sh
 
   kusanagi-nginx:
