@@ -12,20 +12,21 @@ services:
       - /etc/httpd/conf.d
       - /etc/kusanagi.d
       - ./data:/home/kusanagi
-      - ../uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
+      - /home/wordpress/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
     command: /bin/sh
 
   kusanagi-nginx:
     image: primestrategy/kusanagi-nginx:1.10.0-1
     environment:
-      VIRTUAL_HOST: {ドメイン}
+      VIRTUAL_HOST: www.{domain},{domain}
+      VIRTUAL_HOST_ALIAS: www.{domain}
       VIRTUAL_PORT: 443
       VIRTUAL_PROTO: https
-      LETSENCRYPT_HOST: {ドメイン}
-      LETSENCRYPT_EMAIL: {E-MAILアドレス}
+      LETSENCRYPT_HOST: {domain}
+      LETSENCRYPT_EMAIL: {E-MAIL}
       LETSENCRYPT_TEST: "false"
-      PROFILE: {ドメイン}
-      FQDN: {ドメイン}
+      PROFILE: {domain}
+      FQDN: {domain}
       WPLANG: ja
       BCACHE: "off"
       FCACHE: "off"

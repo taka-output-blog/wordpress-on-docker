@@ -2,13 +2,13 @@ version: '2'
 
 services:
   mariadb:
-    container_name: mariadb
+    container_name: kusanagi-mariadb
     image: mariadb:10.1.21
     environment:
-      MYSQL_ROOT_PASSWORD: {データベースルートパスワード}
-      MYSQL_USER: {データベースユーザー名}
-      MYSQL_PASSWORD: {データベースパスワード}
-      MYSQL_DATABASE: {データベース名}
+      MYSQL_ROOT_PASSWORD: {database_root_password}
+      MYSQL_USER: {database_user_name}
+      MYSQL_PASSWORD: {database_password}
+      MYSQL_DATABASE: {database_name}
     volumes_from:
       - db-data
     ports:

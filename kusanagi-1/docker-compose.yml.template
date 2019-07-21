@@ -16,16 +16,18 @@ services:
     command: /bin/sh
 
   kusanagi-nginx:
-    image: primestrategy/kusanagi-nginx:1.10.0-1
+    container_name: kusanagi-nginx
+    image: primestrategy/kusanagi-nginx:latest
     environment:
-      VIRTUAL_HOST: {ドメイン}
+      VIRTUAL_HOST: www.{domain},{domain}
+      VIRTUAL_HOST_ALIAS: www.{domain}
       VIRTUAL_PORT: 443
       VIRTUAL_PROTO: https
-      LETSENCRYPT_HOST: {ドメイン}
-      LETSENCRYPT_EMAIL: {E-MAILアドレス}
+      LETSENCRYPT_HOST: {domain}
+      LETSENCRYPT_EMAIL: {E-MAIL}
       LETSENCRYPT_TEST: "false"
-      PROFILE: {ドメイン}
-      FQDN: {ドメイン}
+      PROFILE: {domain}
+      FQDN: {domain}
       WPLANG: ja
       BCACHE: "off"
       FCACHE: "off"
@@ -42,7 +44,8 @@ services:
       - common_link
 
   kusanagi-php7:
-    image: kusanagi-php7
+    container_name: kusanagi-php7
+    image: primestrategy/kusanagi-php7:latest
     external_links:
       - mariadb:mysql
     volumes_from:
