@@ -48,6 +48,9 @@ sudo curl -L https://github.com/docker/compose/releases/download/${compose}/dock
 sudo chmod +x /usr/local/bin/docker-compose
 ```
 ```
+sudo reboot
+```
+```
 sudo docker network create --driver bridge common_link
 ```
 
