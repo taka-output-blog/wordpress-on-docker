@@ -3,7 +3,7 @@ version: '2'
 services:
   mariadb:
     container_name: kusanagi-mariadb
-    image: mariadb:10.1.21
+    image: mariadb:latest
     environment:
       MYSQL_ROOT_PASSWORD: {database_root_password}
       MYSQL_USER: {database_user_name}
