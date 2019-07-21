@@ -16,9 +16,10 @@ services:
     command: /bin/sh
 
   kusanagi-nginx:
-    image: primestrategy/kusanagi-nginx:1.10.0-1
+    container_name: kusanagi-nginx
+    image: primestrategy/kusanagi-nginx:latest
     environment:
-      VIRTUAL_HOST: www.{domain},{domain}
+      VIRTUAL_HOST: {domain},www.{domain}
       VIRTUAL_HOST_ALIAS: www.{domain}
       VIRTUAL_PORT: 443
       VIRTUAL_PROTO: https
@@ -35,7 +36,7 @@ services:
     links:
       - kusanagi-php7:php
     external_links:
-      - mariadb:mysql
+      - kusanagi-mariadb:mysql
     ports:
       - "443"
     restart: always
@@ -43,9 +44,10 @@ services:
       - common_link
 
   kusanagi-php7:
-    image: kusanagi-php7
+    container_name: kusanagi-php7
+    image: primestrategy/kusanagi-php7:latest
     external_links:
-      - mariadb:mysql
+      - kusanagi-mariadb:mysql
     volumes_from:
       - kusanagi-data
     restart: always
