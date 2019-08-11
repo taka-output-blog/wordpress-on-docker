@@ -23,7 +23,7 @@ services:
       VIRTUAL_HOST_ALIAS: www.{domain}
       VIRTUAL_PORT: 443
       VIRTUAL_PROTO: https
-      LETSENCRYPT_HOST: {domain}
+      LETSENCRYPT_HOST: {domain},www.{domain}
       LETSENCRYPT_EMAIL: {E-MAIL}
       LETSENCRYPT_TEST: "false"
       PROFILE: {domain}
