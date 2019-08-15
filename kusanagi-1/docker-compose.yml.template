@@ -1,20 +1,6 @@
-version: '2'
+version: '3'
 
 services:
-  kusanagi-data:
-    container_name: kusanagi-1
-    image: busybox
-    restart: always
-    stdin_open: true
-    tty: true
-    volumes:
-      - /etc/nginx/conf.d
-      - /etc/httpd/conf.d
-      - /etc/kusanagi.d
-      - ./data:/home/kusanagi
-      - /home/wordpress-on-docker/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
-    command: /bin/sh
-
   kusanagi-nginx:
     container_name: kusanagi-nginx
     image: primestrategy/kusanagi-nginx:latest
@@ -31,8 +17,12 @@ services:
       WPLANG: ja
       BCACHE: "off"
       FCACHE: "off"
-    volumes_from:
-      - kusanagi-data
+    volumes:
+      - kusanagi-data-nginx:/etc/nginx/conf.d
+      - kusanagi-data-httpd:/etc/httpd/conf.d
+      - kusanagi-data-kusanagi:/etc/kusanagi.d
+      - ./data:/home/kusanagi
+      - /home/wordpress-on-docker/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
     links:
       - kusanagi-php7:php
     external_links:
@@ -48,8 +38,12 @@ services:
     image: primestrategy/kusanagi-php7:latest
     external_links:
       - kusanagi-mariadb:mysql
-    volumes_from:
-      - kusanagi-data
+    volumes:
+      - kusanagi-data-nginx:/etc/nginx/conf.d
+      - kusanagi-data-httpd:/etc/httpd/conf.d
+      - kusanagi-data-kusanagi:/etc/kusanagi.d
+      - ./data:/home/kusanagi
+      - /home/wordpress-on-docker/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
     restart: always
     networks:
       - common_link
@@ -58,3 +52,7 @@ networks:
   common_link:
     external: true
 
+volumes:
+  kusanagi-1-data-nginx:
+  kusanagi-1-data-httpd:
+  kusanagi-1-data-kusanagi:

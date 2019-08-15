@@ -1,36 +1,43 @@
-version: '2'
+version: '3'
 
 services:
   nginx-proxy:
     image: jwilder/nginx-proxy
     container_name: nginx-proxy
     privileged: true
+    restart: always
     ports:
       - 80:80
       - 443:443
     volumes:
-      - /home/wordpress-on-docker/nginx-proxy/docker-compose.d/certs:/etc/nginx/certs:ro
-      - /home/wordpress-on-docker/nginx-proxy/docker-compose.d/htpasswd:/etc/nginx/htpasswd
-      - /etc/nginx/vhost.d
-      - /usr/share/nginx/html
+      - ./current/public:/usr/share/nginx/html
+      - ./certs:/etc/nginx/certs:ro
+      - vhost:/etc/nginx/vhost.d
       - /var/run/docker.sock:/tmp/docker.sock:ro
-      - /home/wordpress-on-docker/nginx-proxy/nginx.conf:/etc/nginx/conf.d/my_proxy.conf
-    restart: always
+      - ./nginx.conf:/etc/nginx/conf.d/my_proxy.conf
+    labels:
+      - "com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy=true"
     networks:
       - common_link
 
   letsencrypt-nginx:
     image: jrcs/letsencrypt-nginx-proxy-companion
     container_name: letsencrypt-nginx
+    restart: always
     privileged: true
     volumes:
       - /home/wordpress-on-docker/nginx-proxy/docker-compose.d/certs:/etc/nginx/certs:rw
       - /var/run/docker.sock:/var/run/docker.sock:ro
-    volumes_from:
-      - nginx-proxy
-    restart: always
+    volumes:
+      - ./current/public:/usr/share/nginx/html
+      - ./certs:/etc/nginx/certs:ro
+      - vhost:/etc/nginx/vhost.d
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./nginx.conf:/etc/nginx/conf.d/my_proxy.conf
     networks:
       - common_link
+volumes:
+  vhost:
 networks:
   common_link:
     external: true
