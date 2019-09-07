@@ -1,0 +1,29 @@
+version: '3'
+  
+services:
+  wordpress:
+    container_name: wordpress.{domain}
+    image: wordpress
+    environment:
+      VIRTUAL_HOST: {domain},www.{domain}
+      VIRTUAL_HOST_ALIAS: www.{domain}
+      LETSENCRYPT_HOST: {domain},www.{domain}
+      LETSENCRYPT_EMAIL: {E-MAIL}
+      LETSENCRYPT_TEST: "false"
+      PROFILE: {domain}
+      FQDN: {domain}
+      WPLANG: ja
+      BCACHE: "off"
+      FCACHE: "off"
+    external_links:
+      - mariadb:mysql
+    volumes:
+      - ./data:/var/www/html
+    restart: always
+    networks:
+      - common_link
+    expose:
+      - 80
+networks:
+  common_link:
+    external: true
