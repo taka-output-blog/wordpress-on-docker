@@ -1,33 +1,25 @@
-version: '2'
+version: '3'
 
 services:
   mariadb:
     container_name: kusanagi-mariadb
-    image: mariadb:latest
+    image: mariadb:10.4.7
     environment:
       MYSQL_ROOT_PASSWORD: {database_root_password}
       MYSQL_USER: {database_user_name}
       MYSQL_PASSWORD: {database_password}
       MYSQL_DATABASE: {database_name}
-    volumes_from:
-      - db-data
+    volumes:
+      - db-data:/var/lib/mysql
     ports:
       - "3306"
     restart: always
     networks:
       - common_link
 
-  db-data:
-    container_name: db-data
-    image: busybox
-    restart: always
-    stdin_open: true
-    tty: true
-    volumes:
-      - /var/lib/mysql
-    command: /bin/sh
-
 networks:
   common_link:
     external: true
 
+volumes:
+  db-data:
